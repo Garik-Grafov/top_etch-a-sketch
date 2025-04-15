@@ -21,3 +21,17 @@ function createBoard(size) {
     board.appendChild(div);
   }
 }
+
+// function for get size of the board
+function getSize() {
+  let input = prompt("Give me a size of the board");
+  let message = document.querySelector("#message");
+  if (input == "") {
+    message.innerHTML = "Please provide a number";
+  } else if (input < 0 || input > 100) {
+    message.innerHTML = "Provide a number between 1 and 100";
+  } else {
+    message.innerHTML = "Now you play!";
+    return Number(input);
+  }
+}
