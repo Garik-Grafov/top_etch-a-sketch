@@ -1,12 +1,26 @@
-"use strict";
-// main code
+let color = "black";
+let click = false;
 document.addEventListener("DOMContentLoaded", function () {
   createBoard(16);
-  let btnPopUp = document.querySelector("#popup");
-  btnPopUp.addEventListener("click", function () {});
-});
 
-// create draw area
+  document.querySelector("body").addEventListener("click", function (e) {
+    if (e.target.tagName != "BUTTON") {
+      click = !click;
+      let draw = document.querySelector("#draw");
+      if (click) {
+        draw.innerHTML = "Now you can Draw";
+      } else {
+        draw.innerHTML = `You're now Allowed To Draw`;
+      }
+    }
+  });
+  let btnPopUp = document.querySelector("#popup");
+  btnPopUp.addEventListener("click", function () {
+    let size = getSize();
+    createBoard(size);
+    return size;
+  });
+});
 function createBoard(size) {
   let board = document.querySelector(".container");
   board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
@@ -15,14 +29,11 @@ function createBoard(size) {
 
   for (let i = 0; i < numOfDivs; i++) {
     let div = document.createElement("div");
-    div.addEventListener("mouseover", function () {
-      div.style.background = "black";
-    });
+    div.classList.add("cell");
+    div.addEventListener("mouseover", colorDiv);
     board.appendChild(div);
   }
 }
-
-// function for get size of the board
 function getSize() {
   let input = prompt("Give me a size of the board");
   let message = document.querySelector("#message");
@@ -33,5 +44,24 @@ function getSize() {
   } else {
     message.innerHTML = "Now you play!";
     return Number(input);
+  }
+}
+function colorDiv() {
+  if (click) {
+    if (color == "random") {
+      this.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    } else {
+      this.style.backgroundColor = "black";
+    }
+  }
+}
+
+function setColor(colorChoise) {
+  color = colorChoise;
+}
+function resetBoard() {
+  let divs = document.querySelectorAll(".cell");
+  for (let div of divs) {
+    div.style.backgroundColor = "white";
   }
 }
