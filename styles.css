@@ -13,3 +13,16 @@ body {
   justify-content: space-around;
   margin-bottom: 20px;
 }
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+.container {
+  width: 500px;
+  height: 500px;
+  display: grid;
+  border: 1px solid black;
+}
